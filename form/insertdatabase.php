@@ -12,9 +12,9 @@ $servings = (int) $_POST['recipe_servings'];
 $cook_time = (int) $_POST['recipe_cook'];
 $img_name = $_POST['recipe_img'];
 $category = $_POST['recipe_category'];
-
-$stmt = $db->prepare("INSERT into recipe (user_id, recipe_id, recipe_name, recipe_description, servings, cook_time, img_name, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-$result = $stmt->execute([$user_id, $recipe_id, $recipe_name, $recipe_description, $servings, $cook_time, $img_name, $category]);
+$date = date('Y-m-d');
+$stmt = $db->prepare("INSERT into recipe (user_id, recipe_id, recipe_name, recipe_description, servings, cook_time, img_name, category, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$result = $stmt->execute([$user_id, $recipe_id, $recipe_name, $recipe_description, $servings, $cook_time, $img_name, $category, $date]);
 
 if($result){
     echo json_encode([

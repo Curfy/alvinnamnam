@@ -80,8 +80,8 @@
 
                 <div class="input_box" id="ingr_box">
                     <span class="textLabel">Ingredients:
-                        <button class="ingre_btn" id="subingr" type="button">-</button>
-                        <button class="ingre_btn" id="addingr" type="button">+</button>
+                        <button class="step_btn" id="subingr" type="button">-</button>
+                        <button class="step_btn" id="addingr" type="button">+</button>
                     </span>
                     <input class="input" name="ingredients" id=x0 type="text">
                 </div>
@@ -96,7 +96,7 @@
 
                 <div class="input_box">
                     <span class="textLabel">Image: </span>
-                    <input type="file" id="file" accept=".png">
+                    <input type="file" id="file" accept="image/jpeg, image/png, image/gif, image/bmp">
                 </div>
                 <div class="row input_box">
                     <div class="col">
@@ -278,45 +278,67 @@
         }, 10)
     }
 
+    function getFile(filePath) {
+        return filePath.substr(filePath.lastIndexOf('\\') + 1).split('.')[0];
+    }
+    function checkImage() {
+        var inputfile = document.getElementById('file');
+        var filetype = inputfile.value.split('.')[1];
+        switch (filetype.toLowerCase()) {
+            case 'jpg':
+            case 'jpeg':
+            case 'gif':
+            case 'bmp':
+            case 'png':
+            //etc
+            return true;
+        }
+        return false;
+    }
+    
     function uploadFile() {
         console.log("UPLOAD: " + recipe_id);
         var files = document.getElementById("file").files;
 
         if (files.length > 0) {
+            if(checkImage()){
+                var formData = new FormData();
+                formData.append("file", files[0]);
+                var randomFilename = recipe_id+".png";
+                formData.append("file", files[0], randomFilename);
+                // formData.append("fileName", recipe_name);
 
-            var formData = new FormData();
-            formData.append("file", files[0]);
-            var randomFilename = recipe_id+".png";
-            formData.append("file", files[0], randomFilename);
-            // formData.append("fileName", recipe_name);
+                // var randomFilename = Math.round((Date.now() * Math.random()));
+                // formData.append("file", 'kenneth.png');
 
-            // var randomFilename = Math.round((Date.now() * Math.random()));
-            // formData.append("file", 'kenneth.png');
-
-            // recipe_img = files[0].name;
-            var xhttp = new XMLHttpRequest();
+                // recipe_img = files[0].name;
+                var xhttp = new XMLHttpRequest();
 
 
-            xhttp.open("POST", "uploadimage.php", true);
+                xhttp.open("POST", "uploadimage.php", true);
 
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    var response = this.responseText;
-                    if (response == 1) {
-                        //alert("Upload successfully.");
-                        uploadRecipeDatabase(randomFilename);
-                        uploadIngredientDatabase();
-                        uploadStepsDatabase();
-                        uploadRatingDatabase();
-                        setTimeout(function() {
-                            window.location.replace("../index.php");
-                        }, 1000);
-                    } else {
-                        alert("Creating Recipe Failed.");
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var response = this.responseText;
+                        if (response == 1) {
+                            //alert("Upload successfully.");
+                            uploadRecipeDatabase(randomFilename);
+                            uploadIngredientDatabase();
+                            uploadStepsDatabase();
+                            uploadRatingDatabase();
+                            setTimeout(function() {
+                                window.location.replace("../index.php");
+                            }, 1000);
+                        } else {
+                            alert("Creating Recipe Failed.");
+                        }
                     }
-                }
-            };
-            xhttp.send(formData);
+                };
+                xhttp.send(formData);
+            }else{
+                alert("The only accepted images are png, jpg, jpeg, bmp, gif");
+            }
+            
         } else {
             alert("Please select a file");
         }
@@ -393,7 +415,7 @@
         $("#navigation").append('<li><a href="../form/addrecipe.php">Create Recipe</a></li>');
         $("#createRecipe").append('<a href="../form/addrecipe.php">Create a Recipe</a>');
 
-        if(getCookie("perms") == '69'){
+        if(getCookie("perms") >= 1 && getCookie("perms") <= 2){
             $("#navigation").append('<li><a href="../user/userlist.php">User List</a></li>');
         }
     } else {

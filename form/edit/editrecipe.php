@@ -99,7 +99,7 @@
                 <div class="input_box">
                     <form runat="server">
                         <span class="textLabel">Image: </span>
-                        <input type='file' id="imgInp" accept="image/*"/>
+                        <input type='file' id="imgInp" accept="image/jpeg, image/png, image/gif, image/bmp"/>
                         <img id="blah" src="#"/>
                     </form>
                 </div>
@@ -164,6 +164,7 @@
         recipe_category[2].checked = true
     }
 
+    var recipeId = data.recipe_id;
     var blahimg = document.getElementById('blah')
     imgInp.onchange = evt => {
         const [file] = imgInp.files
@@ -173,6 +174,18 @@
             blah.src = URL.createObjectURL(file)
         }
     }
+    
+    console.log(data);
+
+    if (data['img_name']){
+        blahimg.style.height = "350px";
+        blahimg.style.width = "100%";
+        blahimg.src = '/assets/' + data['img_name'];
+    }
+    else{
+        console.log("not exists");
+    }
+
     function getCookie(cname) {
         let name = cname + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
@@ -189,7 +202,7 @@
         return "";
     }
 
-    function deleteRecipe(recipeid){
+    function deleteRecipe(recipeid, recipeimg){
         $.ajax({
             url: "updaterecipe.php",
             type: "POST",
@@ -197,7 +210,7 @@
                 "id": recipeid,
             },
             success: function(response) {
-                uploadFile();
+                processItems(recipeimg);
             }
         });
         
@@ -289,10 +302,8 @@
                 recipe_category = recipe_category[i].value;
             }
         }
-        if (checkRestriction(recipe_ingredients, recipe_steps, recipe_category)){
-            deleteRecipe(recipe_id);
-        }
-
+        
+        uploadFile(recipe_id);
 
         // console.log(recipe_name);
         // console.log(recipe_description);
@@ -304,22 +315,96 @@
         
     });
 
-    function uploadIngredientDatabase(currentIngredient) {
-        // console.log("Attempting to Upload Ingredient");
-        // console.log("INGREDIENTS_ID: " + recipe_id);
+    // function uploadIngredientDatabase(callback) { //Function One
+    //     // console.log("Attempting to Upload Ingredient");
+    //     // console.log("INGREDIENTS_ID: " + recipe_id);
+    //     for(let i = 0; i < recipe_ingredients.length; i++){
+    //         var currentIngredientz = recipe_ingredients[i];
+    //         setTimeout(function() {
+    //             if(currentIngredientz != '' && currentIngredientz != ' '){
+    //                     $.ajax({
+    //                     url: "../insertingredient.php",
+    //                     type: "POST",
+    //                     data: {
+    //                         "recipe_id": recipe_id,
+    //                         "ingredient": currentIngredientz,
+    //                     },
+    //                     success: function(response) {
+    //                         if (response.code == '201') {
+    //                             console.log('Created Successfully Ingredients');
+    //                         }
+    //                         if (response.code == '400') {
+    //                             console.log('Error');
+    //                         }
+    //                     }
+    //                 });
+    //             }
+    //         }, 10)
+    //     }
+    //     callback();
+    // }
 
-        setTimeout(function() {
-            if(currentIngredient != '' && currentIngredient != ' '){
-                    $.ajax({
+    // function uploadStepsDatabase() { //Function Two
+    //     // console.log("Attempting to Upload Steps");  
+    //     // console.log("STEPS_ID: " + recipe_id);
+    //     for(let i = 0; i < recipe_steps.length; i++){
+    //         var recipeStepz = recipe_steps[i];
+    //         setTimeout(function() {
+    //             if(recipeStepz != '' && recipeStepz != ' '){
+    //                 $.ajax({
+    //                 url: "../insertsteps.php",
+    //                 type: "POST",
+    //                 data: {
+    //                     "recipe_id": recipe_id,
+    //                     "steps": recipeStepz,
+    //                 },
+    //                 async: false,
+    //                 success: function(response) {
+    //                     if (response.code == '201') {
+    //                         console.log('Created Successfully Steps');
+    //                     }
+    //                     if (response.code == '400') {
+    //                         console.log('Error');
+    //                     }
+    //                 }
+    //             });
+    //         }
+    //     }, 10)
+    //     }
+    // }
+
+    const asyncRecipeIngredients = ingredient =>
+        new Promise(resolve =>
+        setTimeout(
+            () => resolve(ingredient),
+            Math.floor(50)
+        )
+    );
+
+    const asyncRecipeSteps = step =>
+        new Promise(resolve =>
+        setTimeout(
+            () => resolve(step),
+            Math.floor(50)
+        )
+    );
+
+    const processItems = async (imgname) => {
+        uploadRecipeDatabase(imgname);
+        for(ingredientz of recipe_ingredients){
+            var ingredientz = await asyncRecipeIngredients(ingredientz);
+            if(ingredientz != '' && ingredientz != ' '){
+                $.ajax({
                     url: "../insertingredient.php",
                     type: "POST",
                     data: {
                         "recipe_id": recipe_id,
-                        "ingredient": currentIngredient,
+                        "ingredient": ingredientz,
                     },
-                    success: function(response) {
+                    async: false,
+                    success: function(response){
                         if (response.code == '201') {
-                            console.log('Created Successfully');
+                            console.log('Created Successfully Ingredients');
                         }
                         if (response.code == '400') {
                             console.log('Error');
@@ -327,26 +412,22 @@
                     }
                 });
             }
-        }, 10)
-    }
+        }
 
-    function uploadStepsDatabase(currentStep) {
-        // console.log("Attempting to Upload Steps");  
-        // console.log("STEPS_ID: " + recipe_id);
-        
-        setTimeout(function() {
-            if(currentStep != '' && currentStep != ' '){
-                    $.ajax({
+        for(stepz of recipe_steps){
+            var stepz = await asyncRecipeSteps(stepz);
+            if(stepz != '' && stepz != ' '){
+                $.ajax({
                     url: "../insertsteps.php",
                     type: "POST",
                     data: {
                         "recipe_id": recipe_id,
-                        "steps": currentStep,
+                        "steps": stepz,
                     },
                     async: false,
-                    success: function(response) {
+                    success: function(response){
                         if (response.code == '201') {
-                            console.log('Created Successfully');
+                            console.log('Created Successfully Steps');
                         }
                         if (response.code == '400') {
                             console.log('Error');
@@ -354,8 +435,11 @@
                     }
                 });
             }
-        }, 10)
-    }
+        }
+
+        console.log("Finished Uploading");
+        window.location.replace("../../index.php");
+    };
 
     function uploadRecipeDatabase(recipe_img) {
         $.ajax({
@@ -374,8 +458,7 @@
             async: false,
             success: function(response) {
                 if (response.code == '201') {
-                    console.log('Created Successfully');
-                    //uploadIngredientDatabase();
+                    console.log('Created Successfully Recipe');
                 }
                 if (response.code == '400') {
                     console.log('Error');
@@ -384,83 +467,72 @@
         });
     }
 
-    function uploadFile() {
+    function getFile(filePath) {
+        return filePath.substr(filePath.lastIndexOf('\\') + 1).split('.')[0];
+    }
+    function checkImage() {
+        var inputfile = document.getElementById('imgInp');
+        var filetype = inputfile.value.split('.')[1];
+        switch (filetype.toLowerCase()) {
+            case 'jpg':
+            case 'jpeg':
+            case 'gif':
+            case 'bmp':
+            case 'png':
+            //etc
+            return true;
+        }
+        return false;
+    }
+
+    function uploadFile(recipeidz) {
         var editNavbar = document.getElementById("editNavbar");
         var editRecipePage = document.getElementById("editRecipe");
         editNavbar.style.display = "none";
         editRecipePage.style.display = "none";
         console.log("UPLOAD: " + recipe_id);
         var files = document.getElementById("imgInp").files;
+            if (files.length > 0) { //checks if there is an img uploaded or not
+                if(checkImage()){
+                    var formData = new FormData();
+                    formData.append("file", files[0]);
+                    var randomFilename = recipe_id+".png";
+                    formData.append("file", files[0], randomFilename);
 
-        if (files.length > 0) { //checks if there is an img uploaded or not
-            var formData = new FormData();
-            formData.append("file", files[0]);
-            var randomFilename = recipe_id+".png";
-            formData.append("file", files[0], randomFilename);
+                    var xhttp = new XMLHttpRequest();
 
-            var xhttp = new XMLHttpRequest();
+                    xhttp.open("POST", "../uploadimage.php", true);
 
-
-            xhttp.open("POST", "../uploadimage.php", true);
-
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    var response = this.responseText;
-                    if (response == 1) {
-                        //alert("Upload successfully.");
-                        const d = new Date();
-
-                        // uploadRecipeDatabase(randomFilename + "?t=" + d.getTime());
-
-                        // uploadIngredientDatabase();
-                        // uploadStepsDatabase();
-
-                        // uploadRatingDatabase();
-                        // setTimeout(function() {
-                        //     window.location.replace("../../index.php");
-                        // }, 5000);
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var response = this.responseText;
+                            if (response == 1) {
+                                // alert("Upload successfully while changing image.");
+                                const d = new Date();
+                                
+                                var imgname = (randomFilename + "?t=" + d.getTime());
+                                deleteRecipe(recipeidz, imgname);
 
 
-                        // window.location.replace("../../index.php");
-
-
-                    } else {
-                        alert("Creating Recipe Failed.");
-                    }
+                            } else {
+                                alert("Creating Recipe Failed.");
+                            }
+                        }
+                    };
+                    xhttp.send(formData);
+                }else{
+                    alert("The only accepted images are png, jpg, jpeg, bmp, gif");
+                    location.reload();
                 }
-            };
-            xhttp.send(formData);
-        } else {
-            // setTimeout(function() {
-            //     //alert("Upload successfully.");
-            //     const d = new Date();
-            //     // console.log(data['img_name'] + '?t=' + d.getTime())
+            }
+            else{
+                // alert("Upload successfully without changing image.");
+
+                const d = new Date();
                 
-            //     uploadRecipeDatabase(data['img_name']);
+                deleteRecipe(recipeidz, data['img_name']);
 
-            //     uploadIngredientDatabase();
-            //     uploadStepsDatabase();
-            //     // window.location.replace("../../index.php");
-            // }, 1000);
-
-            //alert("Upload successfully.");
-            const d = new Date();
-            // console.log(data['img_name'] + '?t=' + d.getTime())
-            
-            uploadRecipeDatabase(data['img_name']);
-            
-            setTimeout(function(){
-                for(let i = 0; i < recipe_ingredients.length; i++){
-                    uploadIngredientDatabase(recipe_ingredients[i]);
-                }
-
-                for(let j = 0; j < recipe_steps.length; j++){
-                    uploadStepsDatabase(recipe_steps[j]);
-                }
-                window.location.replace("../../index.php");
-            }, 3000);
-            
-        }
+            }
     }
 
     function uploadRatingDatabase() {
@@ -490,8 +562,8 @@
         $("#navigation").append('<li><a href="../../form/addrecipe.php">Create Recipe</a></li>');
         $("#createRecipe").append('<a href="../../form/addrecipe.php">Create a Recipe</a>');
 
-        if(getCookie("perms") == '69'){
-            $("#navigation").append('<li><a href="../../user/userlist.php">User List</a></li>');
+        if(getCookie("perms") >= 1 && getCookie("perms") <= 2){
+            $("#navigation").append('<li><a href="../user/userlist.php">User List</a></li>');
         }
     } else {
         $("#loginForm").append('<a href = "../../login/index.php">Log In</a>');
@@ -506,21 +578,7 @@
     });
     
 
-    var recipeId = data.recipe_id;
-
-    let x = 0;
-    let y = 0;
-    console.log(data);
-
-    if (data['img_name']){
-        blahimg.style.height = "350px";
-        blahimg.style.width = "100%";
-        blahimg.src = '/assets/' + data['img_name'];
-    }
-    else{
-        console.log("not exists");
-    }
-
+    
 
 
 
