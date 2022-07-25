@@ -450,19 +450,19 @@ section{
     background-position: center;
 }
 .timeline ul li:nth-child(2)::before{
-    background-image: url(lyka.jpg);
+    background-image: url(lyka.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
 .timeline ul li:nth-child(3)::before{
-    background-image: url(merin.jpg);
+    background-image: url(merin.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
 .timeline ul li:nth-child(4)::before{
-    background-image: url(alvin.jpg);
+    background-image: url(alvin.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -492,4 +492,23 @@ ul, ol{
 .content p{
     font-family: 'Lato', sans-serif;
     font-size: 13px;
+}
+
+/*Footer*/
+.background-design2{
+    /* margin-top: 47%; */
+    /* position: relative; */
+    width: 100%;
+}
+
+.page-footer {
+    font-family: "Playfair Display", serif;
+    background: #fbd691;
+    color: black;
+    padding: 1em;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    bottom: 0;
+    width: auto;
 }

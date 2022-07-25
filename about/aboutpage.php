@@ -67,43 +67,48 @@
                 <li>
                     <div class="content">
                         <h2>Maria Gwyneth Bernardez</h2>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur ratione alias necessitatibus repellat aut provident? Cum nihil a explicabo qui natus placeat, beatae illo, at tenetur laudantium rem dolorem iusto.</p>
+                        <p>She is Founder of the All Tasty Recipe. A blogging pioneer, Gwen first created Simply Recipes in early 2021 as a way to keep track of her family’s recipes, and over the months grew it into one of the most popular cooking websites</p>
                     </div>
                 </li>
                 <li>
                     <div class="content">
                         <h2>Angel Lyka Latoza</h2>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur ratione alias necessitatibus repellat aut provident? Cum nihil a explicabo qui natus placeat, beatae illo, at tenetur laudantium rem dolorem iusto.</p>
+                        <p>Angel is the Associate General Manager of the All Tasty Recipe.  She has over 2 years of experience creating food and cooking content for both web and print and another 1 year within the print publishing industry. She joined the All Tasty team in 2021 as Managing Editor.</p>
                     </div>
                 </li>
                 <li>
                     <div class="content">
                         <h2>Jan Kyle Merin</h2>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur ratione alias necessitatibus repellat aut provident? Cum nihil a explicabo qui natus placeat, beatae illo, at tenetur laudantium rem dolorem iusto.</p>
+                        <p>Jan Kyle is the Senior Editor of the Recipes at All Tasty. He has 2 years of publishing experience working in media across all of its platforms: magazine, newspaper, and digital. He has spent the last 2 years working exclusively in food media where he has worked as a recipe developer, recipe tester, food journalist, essayist, cookbook author, and public speaker.</p>
                     </div>
                 </li>
                 <li>
                     <div class="content">
                         <h2>Alvin Patricio</h2>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur ratione alias necessitatibus repellat aut provident? Cum nihil a explicabo qui natus placeat, beatae illo, at tenetur laudantium rem dolorem iusto.</p>
+                        <p>Alvin has been writing, editing, and developing recipes and content since 2020. He loved working with the same age group as him  because it allowed him to think about food in ways that he could never imagine.</p>
                     </div>
                 </li>
                 <li>
                     <div class="content">
                         <h2>Adrean Andrew Palafox</h2>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur ratione alias necessitatibus repellat aut provident? Cum nihil a explicabo qui natus placeat, beatae illo, at tenetur laudantium rem dolorem iusto.</p>
+                        <p>Adrean is the Senior Vice President of the All Tasty Recipe. He is an avid home cook and lover of all things food-related. Although not professionally trained as a chef, he has taken dozens of recreational cooking classes. His current food obsession is perfecting his sourdough to get that perfect light and airy crumb with a dark and crispy crust.</p>
                     </div>
                 </li>
                 <li>
                     <div class="content">
                         <h2>Kenneth Rada</h2>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur ratione alias necessitatibus repellat aut provident? Cum nihil a explicabo qui natus placeat, beatae illo, at tenetur laudantium rem dolorem iusto.</p>
+                        <p>Kenneth is the Art Director for the All Tasty. He is experienced using visual art to convey story and emotion utilizing photography, illustration, design, and more. He enjoys most anything that involves a good story, and is passionate about creating art in many forms.</p>
                     </div>
                 </li>
             </ul>
+            <div class="background-design2">
+                <footer class="page-footer">
+                    <p>&#169; All Tasty. All right reserved.</p>
+                </footer>
+            </div>
         </div>
     </section>
-
+ 
 </body>
 
 </html>
@@ -137,7 +142,7 @@
         $("#navigation").append('<li><a href="../form/addrecipe.php">Create Recipe</a></li>');
         $("#createRecipe").append('<a href="../form/addrecipe.php">Create a Recipe</a>');
 
-        if(getCookie("perms") == '69'){
+        if(getCookie("perms") >= 1 && getCookie("perms") <= 2){
             $("#navigation").append('<li><a href="../user/userlist.php">User List</a></li>');
         }
     } else {
