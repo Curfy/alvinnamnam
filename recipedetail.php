@@ -101,6 +101,9 @@
         $.ajax({
         url: "./getrecipe.php",
         type: "POST",
+        data:{
+            'search': 'all',
+        },
         success: function(response){
             response.forEach(function (recipe, index){
                     if(recipe.recipe_id == recipeId){
@@ -111,7 +114,7 @@
                                 cooktime += ' ' + (recipe.cook_time % 60) + ' mins';
                             }
                         }
-                        $("#recipeInfo").append('<h1>'+recipe.recipe_name+'</h1> <p>'+recipe.recipe_description+'</p> <div class="time-grid">  <div id = "recipeServings" class="time-square-1"> <div class="time-title-1">Serving</div> <div class="time-alotted">'+recipe.servings+' servings</div></div><div id = "recipeTime" class="time-square-2"><div class="time-title-2">Cook</div><div class="time-alotted">'+cooktime+'</div></div></div>')
+                        $("#recipeInfo").append('<h1>'+recipe.recipe_name+'</h1> <p>'+recipe.recipe_description+'</p> <div class="time-grid">   <div id = "recipeServings" class="time-square-1">  <div class="time-title-1">Recipe By</div> <div class="time-alotted">'+atob(recipe.firstname)+'</div></div>     <div id = "recipeServings" class="time-square-1">  <div class="time-title-1">Serving</div> <div class="time-alotted">'+recipe.servings+' servings</div></div>       <div id = "recipeTime" class="time-square-2"><div class="time-title-2">Cook</div><div class="time-alotted">'+cooktime+'</div></div> </div>')
                         $("#recipeImage").append('<img class = "testing" src = "./assets/'+recipe.img_name+'"></img>');
                         
                         $('#editz').append('<input type="hidden" name="name" value="'+recipe.recipe_name+'">');
@@ -122,7 +125,7 @@
                         $('#editz').append('<input type="hidden" name="img_name" value="'+recipe.img_name+'">');
                         $('#editz').append('<input type="hidden" name="category" value="'+recipe.category+'">');
 
-                        if((recipe.firstname).toLowerCase() == (getCookie("user")).toLowerCase()){
+                        if( getCookie('id') == recipe.user_id || (getCookie("perms") >= 1) ){
                             // $("#editz").append('<button id = "editRecipe" class="recipeback">Edit Recipe</button>');
                             $("#editz").append('<button id = "editRecipe" class="recipeback">Edit Recipe</button>');
                             $("#navz").append('<button id = "deleteRecipe" class="recipe" onClick = "deleteRecipe()">Delete Recipe</button>');

@@ -41,7 +41,7 @@
             </nav>
         </div>
         <div class="recipes_container active">
-            <div><p style = "font-size: 20px">SEARCH RESULTS FOR KEYWORD: <?= $_POST['search']?></p></div>
+            <div><p style = "font-size: 20px">SEARCH RESULTS FOR RECIPES/INGREDIENTS WITH   KEYWORD: <?= $_POST['search']?></p></div>
             <form action = "recipedetail.php" method = "POST">
                 <div id = "searchList" class="recipe_list active">
                 </div>
@@ -50,31 +50,30 @@
         </div>
 
     </section>
-    <script src="script.js"></script>
 </body>
 
 </html>
 
 <script>
     var searchResult = '<?= $_POST['search']?>'.toLowerCase();
-    searchResults();
-    function searchResults(){
+    function searchResults(searchmethod){
         $.ajax({
         url: "./getrecipe.php",
         type: "POST",
+        data:{
+            'search': (searchmethod),
+        },
         success: function(response){
             response.forEach(function (recipe, index){
-                    if (((recipe.recipe_name).toLowerCase()).match(searchResult)){
-                        var cooktime = recipe.cook_time + ' mins';
-                        if (recipe.cook_time > 60){
-                            cooktime = ' ' + Math.round(recipe.cook_time/60) + ' hours';
-                            if (recipe.cook_time % 60 > 0){
-                                cooktime += ' ' + (recipe.cook_time % 60) + ' mins';
-                            }
+                    var cooktime = recipe.cook_time + ' mins';
+                    if (recipe.cook_time > 60){
+                        cooktime = ' ' + Math.round(recipe.cook_time/60) + ' hours';
+                        if (recipe.cook_time % 60 > 0){
+                            cooktime += ' ' + (recipe.cook_time % 60) + ' mins';
                         }
-                        $("#searchList").append('<div class = "recipe"><button class = "recipeButton" name = "button" value = "'+ recipe.recipe_id +'" ><img src="./assets/' + recipe.img_name + '" class="img recipe-img"><div class = "recipename">'+recipe.recipe_name+'</div><div class = "descrip-cook"> <i class="fa fa-clock-o"></i>'+cooktime+'</div> <div class = "descrip-serve"> <i class="fa fa-cutlery"></i> '+recipe.servings+' people</div> <hr/> <div class = "flexStar" id = "'+index+'"> <div class = "rateStar" id = "rateStar'+index+'"> </div> </div></button></div>');
-                        $('#searchList').append('<input type="hidden" name="previouspage" value="./index.php">');
                     }
+                    $("#searchList").append('<div class = "recipe"><button class = "recipeButton" name = "button" value = "'+ recipe.recipe_id +'" ><img src="./assets/' + recipe.img_name + '" class="img recipe-img"><div class = "recipename">'+recipe.recipe_name+'</div><div class = "descrip-cook"> <i class="fa fa-clock-o"></i>'+cooktime+'</div> <div class = "descrip-serve"> <i class="fa fa-cutlery"></i> '+recipe.servings+' people</div> <hr/> <div class = "flexStar" id = "'+index+'"> <div class = "rateStar" id = "rateStar'+index+'"> </div> </div></button></div>');
+                    $('#searchList').append('<input type="hidden" name="previouspage" value="./index.php">');
                 });
                 for(let i = 0; i < response.length; i++){
                     average = response[i].average;
@@ -94,6 +93,7 @@
             }
         });
     }
+    searchResults(searchResult);
     document.cookie = "page=login; path=/login;";
     function getCookie(cname) {
         let name = cname + "=";

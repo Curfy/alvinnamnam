@@ -10,12 +10,6 @@ body {
     position: relative;
 }
 
-.img-circle{
-	border-radius: 8em;
-	border: .5em solid #f5f3ef;
-	width: 12em;
-}
-
 #profile {
     border: 2px solid #1a1a1a;
     border-radius: .5em;
@@ -45,6 +39,11 @@ body {
     border-radius: .5em;
     padding: .5em;
     font-weight: bold;
+
+    white-space: nowrap; 
+    width: 100%; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .alert {
@@ -439,4 +438,35 @@ hr {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+.toprow{
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+}
+.updatephoto{
+    width: 50%;
+}
+
+.updatePhotoLabel{
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#imgInp{
+    opacity: 0;
+    position: absolute;
+    margin:0;
+    z-index: -1;
+    left:0;
+}
+
+.img-circle{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(0, 0, 0, 0.384);
 }

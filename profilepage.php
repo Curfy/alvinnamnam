@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="profilepagestyle.css">
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
+
 	<title>Profile Page</title>
 
     <meta name="title" content="All-Tasty">
@@ -299,8 +300,8 @@
 		<div class="container">
 			<div class="my-card">
 				<div class="row g-0 justify-content-center">
-					<div class="col-lg align-self-center">
-						<img src="./about/default.jpg" class="mx-auto d-block img-circle" alt="profile picture">
+					<div class="col-lg align-self-center" id = "profileImage">
+						<!-- <img src="./about/default.jpg" class="mx-auto d-block img-circle" alt="profile picture"> -->
 					</div>
 					<div class="col-lg-5">
 						<div class="" id=profile></div>
@@ -340,7 +341,145 @@
 	</div>
 	<!-- End of Toast -->
 
+	<!-- USER UPDATE MODULE -->
+	<div class="modal fade" id="modalUpdateUser" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content" id ='usersModal'>
+                
+				<div class="container" style="padding: 0">
 	
+					<!-- Whole Card Including Card Header/Informations -->
+					<div class="card">
+					<!-- Card Header -->
+					<div class="card-header" style = "background-color: #fbd691">Edit Profile</div>
+					<!-- Card Informations -->
+					<div class="card-body">
+						<div class="e-profile">
+						<!-- First Tab -->
+						<div class="row toprow">
+							<div class="col">
+								<div class="mx-auto" style="width: 140px;">
+									<div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: #00000000;">
+										<div>
+											<form runat="server">
+												<img id = "profileId" src = "../about/default.jpg" style = "color: rgb(166, 168, 170); font: bold 8pt Arial; width: 140px; height: 140px; border-radius: 10px;"></img>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row toprow">
+								<div class="text-center text-sm-left mb-2 mb-sm-0">
+									<h4 id = 'displayfullname' class="pt-sm-2 pb-1 mb-0 text-nowrap"></h4>
+									<label for = 'imgInp' class = 'btn btn-primary updatePhotoLabel'><i class="fa fa-fw fa-camera"></i> Update Photo <input type='file' id="imgInp" accept="image/*"></input></label>
+									<p id = 'displayname' class="mb-0">@Zenocy</p>
+									<div class="text-muted" style = "margin-bottom: 20px"><small id = 'displayjoin'>Joined 09 Dec 2017</small></div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Settings Tab -->   
+						<ul class="nav nav-tabs"></ul>
+	
+						<!-- Middle Tab -->
+						<div class="tab-content pt-3 botrow">
+							<div id = 'tabSettings' class="tab-pane active">
+								<form class="form" method = "">
+									<div class="row">
+									<div class="col">
+	
+										<!-- First Middle -->
+										<div class="row">
+										<div class="col">
+											<div class="form-group">
+											<label>First Name</label>
+											<input class="form-control" type="text" id = 'displayfirst' name="fname" placeholder="First Name" value="">
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-group">
+											<label>Last Name</label>
+											<input class="form-control" type="text" id = 'displaylast' name="lname" placeholder="Last Name" value="">
+											</div>
+										</div>
+										</div>
+	
+										<!-- Second Middle -->
+										<div class="row">
+										<div class="col">
+											<div class="form-group">
+											<label>Email</label>
+											<input id = 'displayemail' class="form-control" type="email" placeholder="user@example.com">
+											</div>
+										</div>
+										</div>
+	
+										<!-- Third Middle -->
+										<div class="row">
+										<div class="col mb-3">
+											<div class="form-group">
+											<label>About</label>
+											<textarea id = 'displayabout' class="form-control" rows="4" placeholder="My Bio" value = ""></textarea>
+											</div>
+										</div>
+										</div>
+	
+	
+									</div>
+									</div>
+	
+
+	
+									<!-- Save Button Tab-->
+									<!-- <div class="row">
+										<div class="col d-flex justify-content-end">
+											<button class="btn btn-primary" style = "margin-left: 10px;"type="submit" confirm="Are you sure?">Save Changes</button>
+											<button class="btn btn-primary" style = "margin-left: 10px;">Cancel</button>
+										</div>
+									</div> -->
+								</form>
+									<div class="row">
+										<div class="col d-flex justify-content-end" id = 'updateButtons'>
+											<button class="btn btn-primary" style = "margin-left: 10px;" onclick = "saveChanges()">Save Changes</button>
+											<button class="btn btn-primary" style = "margin-left: 10px;" onclick = "location.reload()">Cancel</button>
+										</div>
+									</div>
+									
+	
+								
+							</div>
+	
+							<div id = 'tabRecipes' class="tab-pane">
+								<div class = "container" id = "recipeCards">
+									<!-- <div onclick = "confirmDeleteRecipe(111)" style = "cursor: pointer;" class = "row recipecard">
+										<div class = "col-md-auto">
+											<img src = "../about/merin.png" class = "recipeimg"></img>
+										</div>
+										<div class = "col-md-auto" style = "padding-left: 10px;">
+											<div class = "row">
+												<h5>Homemade Pizza Recipe<small class="text-muted" style = "padding-left: 10px"><i>Posted on January 10, 2021</i></small></h5>
+											</div>
+											
+											<div class = "row">
+												<div class = "recipedescription"></div>
+											</div>
+										</div>
+										</label>
+									</div> -->
+								</div>
+							</div>
+	
+						</div>
+						</div>
+					</div>
+					
+					</div>
+	
+					</div>
+				</div>
+		</div>
+	</div>
+
 	<!-- FORGOT MODULE -->
 	<div class="modal fade" id="modalResetPass" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -377,6 +516,7 @@
 
 					<div class="modal-footer center">
 						<button type="submit" class="btn btn-dark" name="resetPassword">Reset</button>
+						<button type="submit" class="btn btn-dark" name="cancel">Cancel</button>
 					</div>
 
 				</form>
@@ -425,9 +565,6 @@
 	</div>
 	<!--End of Footer-->
 
-	<!--Kenneth js-->
-	<script src="script.js"></script>
-
 	</div>
 </body>
 
@@ -435,57 +572,83 @@
 
 <script>
 	/* kenneth scripts */
-	Load();
+	Load('all');
+	var fname = document.getElementById('displayfirst');
+	var lname = document.getElementById('displaylast');
+	var demail = document.getElementById('displayemail');
+	var dabout = document.getElementById('displayabout');
 
-	// function Load() {
-	// 	$.ajax({
-	// 		url: "./getrecipe.php",
-	// 		type: "POST",
-	// 		success: function(response) {
-	// 			response.forEach(function(recipe, index) {
-	// 				if (recipe.user_id == getCookie("id")){
-	// 					var cooktime = recipe.cook_time + ' mins';
-	// 					if (recipe.cook_time > 60) {
-	// 						cooktime = ' ' + Math.round(recipe.cook_time / 60) + ' hours';
-	// 						if (recipe.cook_time % 60 > 0) {
-	// 							cooktime += ' ' + (recipe.cook_time % 60) + ' mins';
-	// 						}
-	// 					}
+	var blahimg = document.getElementById('profileId')
+    imgInp.onchange = evt => {
+        const [file] = imgInp.files
+        if (file) {
+            blahimg.style.height = "150px";
+            blahimg.style.width = "150px";
+			blahimg.style.borderradius = '50%';
+            blahimg.src = URL.createObjectURL(file)
+        }
+    }
 
-	// 					// if (recipe.category == "street") {
-	// 					// 	$("#profileDishes").append('<div class = "recipe"><button class = "recipeButton" name = "button" value = ' + recipe.recipe_id + ' ><img src="./assets/' + recipe.img_name + '" class="img recipe-img"><p class = "Author">Author: ' + atob(recipe.firstname) + '</p> <div class = "flexStar" id = "' + index + '"> </div> <h5>' + recipe.recipe_name + '</h5><p> Cook time: ' + cooktime + '</p></button> </div>');
-	// 					// } else if (recipe.category == "dish") {
-	// 					// 	$("#profileDishes").append('<div class = "recipe"><button class = "recipeButton" name = "button" value = ' + recipe.recipe_id + ' ><img src="./assets/' + recipe.img_name + '" class="img recipe-img"><p class = "Author">Author: ' + atob(recipe.firstname) + '</p> <div class = "flexStar" id = "' + index + '"> </div> <h5>' + recipe.recipe_name + '</h5><p> Cook time: ' + cooktime + '</p></button> </div>');
-	// 					// } else {
-	// 					// 	$("#profileDishes").append('<div class = "recipe"><button class = "recipeButton" name = "button" value = ' + recipe.recipe_id + ' ><img src="./assets/' + recipe.img_name + '" class="img recipe-img"><p class = "Author">Author: ' + atob(recipe.firstname) + '</p> <div class = "flexStar" id = "' + index + '"> </div> <h5>' + recipe.recipe_name + '</h5><p> Cook time: ' + cooktime + '</p></button> </div>');
-	// 					// }
+	var randomFilename = '';
+    function saveChanges(){
+        // Upload Picture
+		var files = document.getElementById("imgInp").files;
+		if (files.length > 0) { //checks if there is an img uploaded or not
+			document.getElementById('usersModal').style.display = 'none';
+			document.getElementById('modalUpdateUser').style.pointerEvents = 'none';
+			var formData = new FormData();
+			formData.append("file", files[0]);
+			var image_id = Math.floor(Math.random() * 1000000000);
+			randomFilename = (fname.value)+image_id+".png";
+			formData.append("file", files[0], randomFilename);
 
-	// 					$("#profileDishes").append('<div class = "recipe"><button class = "recipeButton" name = "button" value = ' + recipe.recipe_id + ' ><img src="./assets/' + recipe.img_name + '" class="img recipe-img"><p class = "Author">Author: ' + atob(recipe.firstname) + '</p> <div class = "flexStar" id = "' + index + '"> </div> <h5>' + recipe.recipe_name + '</h5><p> Cook time: ' + cooktime + '</p></button> </div>');
-	// 					$('#profileDishes').append('<input type="hidden" name="previouspage" value="./profilepage.php">');
-	// 				}
-	// 			});
-	// 			for (let i = 0; i < response.length; i++) {
-	// 				average = response[i].average;
-	// 				if (average == null) {
-	// 					$('#' + i + '').append('<p2 class = "average" >0.0</p2>');
-	// 				} else {
-	// 					$('#' + i + '').append('<p2 class = "average" > ' + parseFloat(average).toFixed(1) + '</p2>');
-	// 				}
-	// 				for (let j = 0; j < Math.trunc(average); j++) {
-	// 					$('#' + i + '').append('<span class = "fa fa-star" style = "color: #ff0038"></span>');
-	// 				}
-	// 				for (let k = 0; k < (5 - Math.trunc(average)); k++) {
-	// 					$('#' + i + '').append('<span class = "fa fa-star" style = "color: black"></span>');
-	// 				}
-	// 			}
-	// 		}
-	// 	});
-	// }
+			var xhttp = new XMLHttpRequest();
 
-	function Load() {
+
+			xhttp.open("POST", "./user/uploadprofileimg.php", true);
+
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var response = this.responseText;
+					if (response == 1) {
+						
+						location.reload();
+					} else {
+						alert("Uploading Photo Failed.");
+					}
+				}
+			};
+			xhttp.send(formData);
+		}
+		// Update Profile
+		$.ajax({
+			url: "./updateuser.php",
+			type: "POST",
+			data: {
+				"userid": getCookie('id'),
+				"firstname": btoa(fname.value),
+				"lastname": btoa(lname.value),
+				"email": btoa(demail.value),
+				"about": btoa(dabout.value),
+				"image": randomFilename,
+			},
+			success: function(response) {
+				if(response){
+					if(randomFilename == ''){
+						location.reload();
+					}
+				}
+			}
+		});
+    }
+
+	function Load(searchmethod) {
         $.ajax({
             url: "./getrecipe.php",
             type: "POST",
+			data:{
+				"search": searchmethod,
+			},
             success: function(response) {
                 response.forEach(function(recipe, index) {
 					if (recipe.user_id == getCookie("id")){
@@ -556,7 +719,7 @@
         $("#navigation").append('<li><a href="../form/addrecipe.php">Create Recipe</a></li>');
         $("#createRecipe").append('<a href="../form/addrecipe.php">Create a Recipe</a>');
 
-        if(getCookie("perms") == '69'){
+        if(getCookie("perms") >= 1 && getCookie("perms") <= 2){
             $("#navigation").append('<li><a href="../user/userlist.php">User List</a></li>');
         }
     } else {
@@ -581,15 +744,31 @@
 			success: function(response) {
 				var firstname = atob(response[0].firstname);
 				var lastname = atob(response[0].lastname);
+				var about = atob(response[0].description);
 				var email = atob(response[0].email);
-				// document.cookie = "email="+response[0].email;
+				var profileImg = './assets/'+response[0].image;
 
-				// $("#profile").append('<h1>'+recipe.recipe_name+'</h1> <p>'+recipe.recipe_description+'</p> <div class="time-grid">  <div id = "recipeServings" class="time-square-1"> <div class="time-title-1">Serving</div> <div class="time-alotted">'+recipe.servings+' servings</div></div><div id = "recipeTime" class="time-square-2"><div class="time-title-2">Cook</div><div class="time-alotted">'+cooktime+'</div></div></div>')
-				// <p class="profile-name"> </p>
+				if(profileImage == ''){
+					profileImage = './about/default.jpg';
+				}
 				$("#profile").append('<p class="profile-name underline">' + firstname + ' ' + lastname + '</p>');
-				$("#profile").append('<p class="profile-info">Life is awesome! Make your life tasty with All Tasty.</p>');
+				$("#profileImage").append('<img src="'+profileImg+'" class="img-circle" alt="profile picture">');
+				// $("#profile").append('<p class="profile-info">Life is awesome! Make your life tasty with All Tasty.</p>');
+				$("#profile").append('<p class="profile-info">'+about+'</p>');
 				$(".profile2").append('<p class="underline"> Email: ' + email + '</p>');
-				$(".profile2").append('<a class="logout" data-bs-toggle="modal" data-bs-target="#modalResetPass"> Reset Password </a>');
+				$(".profile2").append('<a class="logout" data-bs-toggle="modal" data-bs-target="#modalUpdateUser" style = "font-size: 15px"> Update Account </a>');
+				$(".profile2").append('<a class="logout" data-bs-toggle="modal" data-bs-target="#modalResetPass" style = "font-size: 15px"> Reset Password </a>');
+
+				// Load Previous Data
+				blahimg.style.height = "140px";
+				blahimg.style.width = "140px";
+				blahimg.src = profileImg;
+
+				fname.value = firstname;
+				lname.value = lastname;
+				demail.value = email;
+				dabout.value = about;
+				
 			}
 		});
 	}

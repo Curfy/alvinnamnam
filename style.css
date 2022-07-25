@@ -8,6 +8,7 @@ body{
 }
 
 /* Navigation Bar */
+
 .container .navbar{
     display: flex;
     justify-content: space-between;
@@ -427,4 +428,81 @@ hr {
     position: relative;
     bottom: 0;
     width: auto;
+}
+
+/* For Recipe Filter */
+
+.dropbtn {
+    background-color: #00000000;
+    color: rgb(53, 53, 53);
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 100px;
+    font-family: "Playfair Display", serif;
+  }
+  
+.dropbtn:hover, .dropbtn:focus {
+    color: rgb(0, 0, 0);
+}
+
+.dropdown {
+    color: black;
+    font-weight: 500;
+    font-size: 17px;
+    position: relative;
+    float: right;
+    background-color: #fbd691;
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    overflow: auto;
+    margin-top: 7px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.342);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content button {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown .buttonList{
+    width: 100%;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;  
+    text-align: left;
+    font-weight: 600;
+}   
+.dropdown .buttonList:hover {
+    background-color: #e7e7e7a8;
+}
+
+.dropdown .buttonList.active{
+    color: #de0c19;
+    background-color: #fbd6917c;
+}
+
+.show {
+    display: block;
+}
+
+.sortBy{
+    cursor: context-menu;
 }
