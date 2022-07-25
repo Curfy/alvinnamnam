@@ -15,8 +15,9 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="maximum-scale=1.0, width=device-width, initial-scale=1.0">
-	<title>Login Module</title>
-
+	<title>All Tasty</title>
+	<link rel = "icon" href = "http://alvinnamnam.online/assets/All-Tasty.png">
+	
 	<?php include 'assets/links.php'; ?>
 
 </head>

@@ -62,11 +62,11 @@
 		}
 		return false;
 	}
-
+	
 	function checkSpecial($array)
 	{
 		foreach ($array as $letter) {
-			if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $letter)) {
+			if (preg_match('/[\'^£$%&*()}{@#~?><>,.|=_+¬-]/', $letter)) {
 				return true;
 			}
 		}
