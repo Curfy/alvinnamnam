@@ -132,8 +132,6 @@
     </div>
     
     
-    
-    <script src="script.js"></script>
 
 </body>
 
@@ -168,7 +166,7 @@
         $("#navigation").append('<li><a href="../form/addrecipe.php">Create Recipe</a></li>');
         $("#createRecipe").append('<a href="../form/addrecipe.php">Create a Recipe</a>');
 
-        if(getCookie("perms") == '69'){
+        if(getCookie("perms") >= 1 && getCookie("perms") <= 2){
             $("#navigation").append('<li><a href="../user/userlist.php">User List</a></li>');
         }
     } else {
